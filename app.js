@@ -235,7 +235,11 @@
 			const key = mat + '\u241F' + batch
 			if (!lineMap.has(key))
 				lineMap.set(key, { key, material: mat, batch: batch, palletCount: 0 })
-			lineMap.get(key).palletCount += 1
+			if (mat === '' || mat.toLowerCase() === '<<empty>>' || mat === '—') {
+				lineMap.get(key).palletCount += 0
+			} else {
+				lineMap.get(key).palletCount += 1
+			}
 		})
 		const bins = [...binMap.entries()]
 			.map(([bin, lineMap]) => {
